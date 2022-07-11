@@ -51,11 +51,19 @@ class HomePage extends StatelessWidget {
                   Column(
                     children: const [
                       Text('learn'),
+                      Image(
+                        image: AssetImage('images/brain.gif'),
+                        height: 100,
+                      ),
                     ],
                   ),
                   Column(
                     children: const [
                       Text('note'),
+                      Image(
+                        image: AssetImage('images/note.gif'),
+                        height: 60,
+                      ),
                     ],
                   ),
                 ],
