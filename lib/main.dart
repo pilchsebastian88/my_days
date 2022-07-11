@@ -14,7 +14,61 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Scaffold(),
+      home: const RootPage(),
+    );
+  }
+}
+
+class RootPage extends StatelessWidget {
+  const RootPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const HomePage();
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('MyDays'),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: const [
+                      Text('learn'),
+                    ],
+                  ),
+                  Column(
+                    children: const [
+                      Text('note'),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                children: const [
+                  Text('&rated'),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
