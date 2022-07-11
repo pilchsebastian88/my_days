@@ -39,6 +39,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/home_page_background.png'),
+              fit: BoxFit.cover),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +76,7 @@ class HomePage extends StatelessWidget {
               ),
               Column(
                 children: const [
-                  Text('&rated'),
+                  Text('&rate'),
                 ],
               )
             ],
