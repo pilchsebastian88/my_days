@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,24 +50,33 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('MyDays'),
+              Text(
+                'MyDays',
+                style: GoogleFonts.dancingScript(fontSize: 80),
+              ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
-                    children: const [
-                      Text('learn'),
-                      Image(
+                    children: [
+                      Text(
+                        'learn',
+                        style: GoogleFonts.noticiaText(fontSize: 30),
+                      ),
+                      const Image(
                         image: AssetImage('images/brain.gif'),
                         height: 100,
                       ),
                     ],
                   ),
                   Column(
-                    children: const [
-                      Text('note'),
-                      Image(
+                    children: [
+                      Text(
+                        'note',
+                        style: GoogleFonts.dancingScript(fontSize: 50),
+                      ),
+                      const Image(
                         image: AssetImage('images/note.gif'),
                         height: 60,
                       ),
@@ -75,8 +85,11 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               Column(
-                children: const [
-                  Text('&rate'),
+                children: [
+                  Text(
+                    '&rate',
+                    style: GoogleFonts.noticiaText(fontSize: 30),
+                  ),
                 ],
               )
             ],
