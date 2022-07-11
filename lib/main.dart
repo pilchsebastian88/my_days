@@ -90,6 +90,36 @@ class HomePage extends StatelessWidget {
                     '&rate',
                     style: GoogleFonts.noticiaText(fontSize: 30),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 30,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 30,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 30,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 30,
+                      ),
+                      Icon(
+                        Icons.star_half,
+                        color: Colors.amber,
+                        size: 30,
+                      ),
+                    ],
+                  ),
                 ],
               )
             ],
