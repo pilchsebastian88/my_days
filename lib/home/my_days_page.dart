@@ -20,9 +20,37 @@ class MyDaysPage extends StatelessWidget {
       body: ListView(
         children: [
           Column(
-            children: const [],
+            children: const [
+              NewDayWidget('some text 1'),
+              NewDayWidget('some text 2'),
+              NewDayWidget('some text 3'),
+            ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class NewDayWidget extends StatelessWidget {
+  const NewDayWidget(
+    this.title, {
+    Key? key,
+  }) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: const Color.fromARGB(250, 240, 246, 96)),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      child: Text(
+        title,
+        textAlign: TextAlign.justify,
       ),
     );
   }
