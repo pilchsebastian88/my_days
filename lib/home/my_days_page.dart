@@ -28,6 +28,9 @@ class MyDaysPage extends StatelessWidget {
           )
         ],
       ),
+      bottomSheet: Image.asset(
+        'images/bottomsheet_image.png',
+      ),
     );
   }
 }
