@@ -91,7 +91,14 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ],
-              )
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: const Color.fromARGB(255, 48, 180, 247),
+                    onPrimary: Colors.yellow),
+                onPressed: () {},
+                child: const Text('get started'),
+              ),
             ],
           ),
         ),
