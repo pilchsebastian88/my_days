@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_days/home/my_days_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -96,7 +97,13 @@ class HomePage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                     primary: const Color.fromARGB(255, 48, 180, 247),
                     onPrimary: Colors.yellow),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const MyDaysPage(),
+                    ),
+                  );
+                },
                 child: const Text('get started'),
               ),
             ],
