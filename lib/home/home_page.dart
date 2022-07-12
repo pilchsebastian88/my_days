@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_days/home/my_days_page.dart';
+import 'package:my_days/home/my_days/my_days_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
