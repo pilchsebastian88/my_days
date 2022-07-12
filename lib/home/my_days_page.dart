@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyDaysPage extends StatelessWidget {
+class MyDaysPage extends StatefulWidget {
   const MyDaysPage({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<MyDaysPage> createState() => _MyDaysPageState();
+}
+
+class _MyDaysPageState extends State<MyDaysPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +41,20 @@ class MyDaysPage extends StatelessWidget {
   }
 }
 
-class NewDayWidget extends StatelessWidget {
+class NewDayWidget extends StatefulWidget {
   const NewDayWidget(
     this.title, {
     Key? key,
   }) : super(key: key);
 
   final String title;
+
+  @override
+  State<NewDayWidget> createState() => _NewDayWidgetState();
+}
+
+class _NewDayWidgetState extends State<NewDayWidget> {
+  var rating = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,23 +67,30 @@ class NewDayWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            title,
+            widget.title,
             textAlign: TextAlign.justify,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 'Rating:',
                 style: TextStyle(
                   color: Color.fromARGB(255, 250, 103, 93),
                 ),
               ),
-              Icon(Icons.star),
-              Icon(Icons.star),
-              Icon(Icons.star),
-              Icon(Icons.star),
-              Icon(Icons.star),
+              RatingBar.builder(
+                itemSize: 35,
+                updateOnDrag: true,
+                minRating: 1,
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) => setState(() {
+                  rating = rating;
+                }),
+              ),
             ],
           ),
         ],
