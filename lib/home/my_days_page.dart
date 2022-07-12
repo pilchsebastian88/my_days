@@ -48,9 +48,29 @@ class NewDayWidget extends StatelessWidget {
           color: const Color.fromARGB(250, 240, 246, 96)),
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(10),
-      child: Text(
-        title,
-        textAlign: TextAlign.justify,
+      child: Column(
+        children: [
+          Text(
+            title,
+            textAlign: TextAlign.justify,
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Text(
+                'Rating:',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 250, 103, 93),
+                ),
+              ),
+              Icon(Icons.star),
+              Icon(Icons.star),
+              Icon(Icons.star),
+              Icon(Icons.star),
+              Icon(Icons.star),
+            ],
+          ),
+        ],
       ),
     );
   }
