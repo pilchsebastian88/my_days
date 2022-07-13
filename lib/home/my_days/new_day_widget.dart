@@ -3,18 +3,20 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class NewDayWidget extends StatefulWidget {
   const NewDayWidget(
-    this.title, {
+    this.title,
+    this.date, {
     Key? key,
   }) : super(key: key);
 
   final String title;
+  final double date;
 
   @override
   State<NewDayWidget> createState() => _NewDayWidgetState();
 }
 
 class _NewDayWidgetState extends State<NewDayWidget> {
-  var rating = 0;
+  var rating = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class _NewDayWidgetState extends State<NewDayWidget> {
       margin: const EdgeInsets.all(10),
       child: Column(
         children: [
+          Text(widget.date.toString()),
           Text(
             widget.title,
             textAlign: TextAlign.justify,
@@ -47,8 +50,8 @@ class _NewDayWidgetState extends State<NewDayWidget> {
                   Icons.star,
                   color: Colors.amber,
                 ),
-                onRatingUpdate: (rating) => setState(() {
-                  rating = rating;
+                onRatingUpdate: (newValue) => setState(() {
+                  rating = newValue;
                 }),
               ),
             ],

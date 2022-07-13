@@ -81,7 +81,10 @@ class _MyDaysPageState extends State<MyDaysPage> {
                 ],
               ),
               for (final document in documents) ...[
-                NewDayWidget(document['title']),
+                NewDayWidget(
+                  document['title'],
+                  document['date'],
+                ),
               ],
             ],
           );
