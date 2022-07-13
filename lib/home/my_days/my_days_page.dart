@@ -29,8 +29,24 @@ class _MyDaysPageState extends State<MyDaysPage> {
         children: [
           Column(
             children: [
-              TextField(
-                controller: widget.controller,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: widget.controller,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white38,
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.amber.shade200,
+                        width: 1.0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 1.5),
+                    ),
+                  ),
+                ),
               ),
               NewDayWidget('My day 1'),
               NewDayWidget('My day 2'),
