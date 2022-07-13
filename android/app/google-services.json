@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "409006266756",
+    "project_id": "my-days-123",
+    "storage_bucket": "my-days-123.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409006266756:android:70b6448eda9952a525e5d1",
+        "android_client_info": {
+          "package_name": "com.sebastianpilch.my_days"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409006266756-0eqsllg5as5jpdb7bj7jbr3ve9u817g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrf0uXXKoE_jasPEWeisOj0jGaVlsXn3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409006266756-0eqsllg5as5jpdb7bj7jbr3ve9u817g3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "409006266756-6pmcd6pde08au34lcqd8hfvep9j3j0k5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sebastianpilch.myDays"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
