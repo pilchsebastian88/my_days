@@ -87,9 +87,18 @@ class _MyDaysPageState extends State<MyDaysPage> {
                 ],
               ),
               for (final document in documents) ...[
-                NewDayWidget(
-                  document['title'],
-                  document['date'],
+                Dismissible(
+                  key: ValueKey(document.id),
+                  onDismissed: (_) {
+                    FirebaseFirestore.instance
+                        .collection('mydays')
+                        .doc(document.id)
+                        .delete();
+                  },
+                  child: NewDayWidget(
+                    document['title'],
+                    document['date'],
+                  ),
                 ),
               ],
             ],
