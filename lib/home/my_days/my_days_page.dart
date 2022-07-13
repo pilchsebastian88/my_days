@@ -54,6 +54,14 @@ class _MyDaysPageState extends State<MyDaysPage> {
                   cursorColor: Colors.black,
                 ),
               ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    primary: const Color.fromARGB(255, 48, 180, 247)),
+                child: const Text(
+                  'save',
+                ),
+              ),
               NewDayWidget('My day 1'),
               NewDayWidget('My day 2'),
               NewDayWidget('My day 3'),
