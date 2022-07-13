@@ -71,7 +71,13 @@ class _MyDaysPageState extends State<MyDaysPage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        FirebaseFirestore.instance
+                            .collection('mydays')
+                            .add({'title': '', 'date': double.nan});
+                      });
+                    },
                     style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 48, 180, 247)),
                     child: const Text(
