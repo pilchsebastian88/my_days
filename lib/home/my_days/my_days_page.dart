@@ -3,9 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:my_days/home/my_days/new_day_widget.dart';
 
 class MyDaysPage extends StatefulWidget {
-  const MyDaysPage({
+  MyDaysPage({
     Key? key,
   }) : super(key: key);
+
+  final controller = TextEditingController();
 
   @override
   State<MyDaysPage> createState() => _MyDaysPageState();
@@ -26,7 +28,10 @@ class _MyDaysPageState extends State<MyDaysPage> {
       body: ListView(
         children: [
           Column(
-            children: const [
+            children: [
+              TextField(
+                controller: widget.controller,
+              ),
               NewDayWidget('My day 1'),
               NewDayWidget('My day 2'),
               NewDayWidget('My day 3'),
