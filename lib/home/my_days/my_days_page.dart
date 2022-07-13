@@ -34,6 +34,11 @@ class _MyDaysPageState extends State<MyDaysPage> {
                 child: TextField(
                   controller: widget.controller,
                   decoration: InputDecoration(
+                    hintText: 'write here what you learned today',
+                    hintStyle: const TextStyle(
+                      fontSize: 11,
+                      color: Colors.yellow,
+                    ),
                     fillColor: Colors.white38,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
@@ -42,10 +47,11 @@ class _MyDaysPageState extends State<MyDaysPage> {
                         width: 1.0,
                       ),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black, width: 1.5),
                     ),
                   ),
+                  cursorColor: Colors.black,
                 ),
               ),
               NewDayWidget('My day 1'),
