@@ -118,25 +118,24 @@ class _MyDaysPageState extends State<MyDaysPage> {
                 Dismissible(
                   confirmDismiss: (DismissDirection direction) async {
                     return await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Confirm action!'),
-                            content: const Text('You want delete YourDay?'),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true),
-                                child: const Text('Delete'),
-                              ),
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
-                                child: const Text('Cancel'),
-                              ),
-                            ],
-                          );
-                        });
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Confirm action!'),
+                          content: const Text('You want delete YourDay?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(true),
+                              child: const Text('Delete'),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: const Text('Cancel'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   key: ValueKey(document.id),
                   onDismissed: (_) {
