@@ -34,7 +34,7 @@ class _NewDayWidgetState extends State<NewDayWidget> {
             textAlign: TextAlign.justify,
           ),
           Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const Text(
                 'Rating:',
@@ -43,7 +43,7 @@ class _NewDayWidgetState extends State<NewDayWidget> {
                 ),
               ),
               RatingBar.builder(
-                itemSize: 35,
+                itemSize: 30,
                 updateOnDrag: true,
                 minRating: 1,
                 itemBuilder: (context, _) => const Icon(
