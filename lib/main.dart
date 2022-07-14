@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_days/home/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,6 +34,19 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomePage();
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        final user = snapshot.data;
+        if (user == null) {
+          return const Scaffold(
+            body: Center(
+              child: Text('You are not logged in'),
+            ),
+          );
+        }
+        return const HomePage();
+      },
+    );
   }
 }
