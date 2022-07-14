@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,6 +44,19 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  try {
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
+                  } catch (error) {
+                    print(error);
+                  }
+                },
+                child: const Text('sign in'),
               ),
             ],
           ),
