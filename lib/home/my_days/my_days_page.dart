@@ -49,7 +49,8 @@ class _MyDaysPageState extends State<MyDaysPage> {
                     child: TextField(
                       controller: widget.controller,
                       decoration: InputDecoration(
-                        hintText: 'write here what you learned today',
+                        hintText:
+                            'write here what you learned today and tap "save"',
                         hintStyle: const TextStyle(
                           fontSize: 11,
                           color: Colors.yellow,
@@ -123,6 +124,7 @@ class _MyDaysPageState extends State<MyDaysPage> {
                   ),
                 ),
               ],
+              const SizedBox(height: 500)
             ],
           );
         },
