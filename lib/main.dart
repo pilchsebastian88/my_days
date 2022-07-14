@@ -45,7 +45,7 @@ class RootPage extends StatelessWidget {
             ),
           );
         }
-        return const HomePage();
+        return HomePage(email: user.email);
       },
     );
   }

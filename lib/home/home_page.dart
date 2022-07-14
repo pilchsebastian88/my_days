@@ -4,8 +4,11 @@ import 'package:my_days/home/my_days/my_days_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
+    required this.email,
     Key? key,
   }) : super(key: key);
+
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +109,7 @@ class HomePage extends StatelessWidget {
                 },
                 child: const Text('get started'),
               ),
+              Text('You are logged in as $email')
             ],
           ),
         ),
