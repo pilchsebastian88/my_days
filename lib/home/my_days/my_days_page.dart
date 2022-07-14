@@ -73,11 +73,36 @@ class _MyDaysPageState extends State<MyDaysPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        FirebaseFirestore.instance
-                            .collection('mydays')
-                            .add({'title': '', 'date': double.nan});
-                      });
+                      if (widget.controller.text.isEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Hint'),
+                              content: const Text(
+                                  'You need to enter some text first'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: const Text('OK!'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        setState(
+                          () {
+                            FirebaseFirestore.instance
+                                .collection('mydays')
+                                .add({
+                              'title': widget.controller.text,
+                              'date': double.nan
+                            });
+                            widget.controller.clear();
+                          },
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 48, 180, 247)),
