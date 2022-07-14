@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({
+  LoginPage({
     Key? key,
   }) : super(key: key);
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,22 @@ class LoginPage extends StatelessWidget {
               Text(
                 'MyDays',
                 style: GoogleFonts.dancingScript(fontSize: 80),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: emailController,
+                      decoration: const InputDecoration(hintText: 'e-mail'),
+                    ),
+                    TextField(
+                      controller: passwordController,
+                      decoration: const InputDecoration(hintText: 'password'),
+                      obscureText: true,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
