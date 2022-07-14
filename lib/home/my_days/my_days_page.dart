@@ -73,6 +73,7 @@ class _MyDaysPageState extends State<MyDaysPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
+                      Focus.of(context).requestFocus(FocusNode());
                       if (widget.controller.text.isEmpty) {
                         showDialog(
                           context: context,
@@ -93,13 +94,14 @@ class _MyDaysPageState extends State<MyDaysPage> {
                       } else {
                         setState(
                           () {
-                            FirebaseFirestore.instance
-                                .collection('mydays')
-                                .add({
-                              'title': widget.controller.text,
-                              'date': double.nan
-                            });
+                            FirebaseFirestore.instance.collection('mydays').add(
+                              {
+                                'title': widget.controller.text,
+                                'date': double.nan
+                              },
+                            );
                             widget.controller.clear();
+                            FocusScope.of(context).unfocus();
                           },
                         );
                       }
