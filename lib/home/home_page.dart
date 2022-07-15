@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_days/home/my_days/my_days_page.dart';
@@ -95,18 +97,32 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 48, 180, 247),
-                    onPrimary: Colors.yellow),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => MyDaysPage(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color.fromARGB(255, 48, 180, 247),
                     ),
-                  );
-                },
-                child: const Text('get started'),
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                    },
+                    child: const Text('sign out'),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: const Color.fromARGB(255, 48, 180, 247),
+                        onPrimary: Colors.yellow),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => MyDaysPage(),
+                        ),
+                      );
+                    },
+                    child: const Text('get started'),
+                  ),
+                ],
               ),
               Text('You are logged in as $email')
             ],
