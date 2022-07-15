@@ -73,7 +73,6 @@ class _MyDaysPageState extends State<MyDaysPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Focus.of(context).requestFocus(FocusNode());
                       if (widget.controller.text.isEmpty) {
                         showDialog(
                           context: context,
@@ -101,7 +100,6 @@ class _MyDaysPageState extends State<MyDaysPage> {
                               },
                             );
                             widget.controller.clear();
-                            FocusScope.of(context).unfocus();
                           },
                         );
                       }
