@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({
     Key? key,
   }) : super(key: key);
@@ -10,6 +10,11 @@ class LoginPage extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,11 +39,11 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: [
                     TextField(
-                      controller: emailController,
+                      controller: widget.emailController,
                       decoration: const InputDecoration(hintText: 'e-mail'),
                     ),
                     TextField(
-                      controller: passwordController,
+                      controller: widget.passwordController,
                       decoration: const InputDecoration(hintText: 'password'),
                       obscureText: true,
                     ),
@@ -49,8 +54,8 @@ class LoginPage extends StatelessWidget {
                 onPressed: () async {
                   try {
                     await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: emailController.text,
-                      password: passwordController.text,
+                      email: widget.emailController.text,
+                      password: widget.passwordController.text,
                     );
                   } catch (error) {
                     print(error);
