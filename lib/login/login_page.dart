@@ -57,6 +57,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: const Color.fromARGB(255, 34, 164, 230),
+                ),
                 onPressed: () async {
                   if (isCreatingAccount == true) {
                     try {
@@ -66,9 +69,11 @@ class _LoginPageState extends State<LoginPage> {
                         password: widget.passwordController.text,
                       );
                     } catch (error) {
-                      setState(() {
-                        errorMessage = error.toString();
-                      });
+                      setState(
+                        () {
+                          errorMessage = error.toString();
+                        },
+                      );
                     }
                   } else {
                     try {
@@ -77,13 +82,17 @@ class _LoginPageState extends State<LoginPage> {
                         password: widget.passwordController.text,
                       );
                     } catch (error) {
-                      setState(() {
-                        errorMessage = error.toString();
-                      });
+                      setState(
+                        () {
+                          errorMessage = error.toString();
+                        },
+                      );
                     }
                   }
                 },
-                child: Text(isCreatingAccount == true ? 'register' : 'sign in'),
+                child: Text(
+                  isCreatingAccount == true ? 'register' : 'sign in',
+                ),
               ),
               const SizedBox(height: 20),
               if (isCreatingAccount == false) ...[
@@ -94,18 +103,24 @@ class _LoginPageState extends State<LoginPage> {
                       isCreatingAccount = true;
                     });
                   },
-                  child: const Text('create account'),
+                  child: const Text(
+                    'create account',
+                  ),
                 ),
               ],
               if (isCreatingAccount == true) ...[
                 TextButton(
                   style: TextButton.styleFrom(primary: Colors.amber),
                   onPressed: () {
-                    setState(() {
-                      isCreatingAccount = false;
-                    });
+                    setState(
+                      () {
+                        isCreatingAccount = false;
+                      },
+                    );
                   },
-                  child: const Text('You have an account?'),
+                  child: const Text(
+                    'You have an account?',
+                  ),
                 ),
               ],
             ],
