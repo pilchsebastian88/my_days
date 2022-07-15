@@ -15,6 +15,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +49,8 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: const InputDecoration(hintText: 'password'),
                       obscureText: true,
                     ),
+                    const SizedBox(height: 20),
+                    Text(errorMessage),
                   ],
                 ),
               ),
@@ -58,7 +62,9 @@ class _LoginPageState extends State<LoginPage> {
                       password: widget.passwordController.text,
                     );
                   } catch (error) {
-                    print(error);
+                    setState(() {
+                      errorMessage = error.toString();
+                    });
                   }
                 },
                 child: const Text('sign in'),
