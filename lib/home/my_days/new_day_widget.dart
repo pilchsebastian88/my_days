@@ -16,7 +16,7 @@ class NewDayWidget extends StatefulWidget {
 }
 
 class _NewDayWidgetState extends State<NewDayWidget> {
-  var rating = 1.0;
+  double rating = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,16 @@ class _NewDayWidgetState extends State<NewDayWidget> {
       margin: const EdgeInsets.all(10),
       child: Column(
         children: [
-          Text(widget.date.toString()),
+          Container(
+            padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              widget.date.toString(),
+            ),
+          ),
           Text(
             widget.title,
             textAlign: TextAlign.justify,
@@ -58,15 +67,15 @@ class _NewDayWidgetState extends State<NewDayWidget> {
                     ),
                   ),
                   RatingBar.builder(
+                    initialRating: rating,
                     itemSize: 30,
-                    updateOnDrag: true,
                     minRating: 1,
                     itemBuilder: (context, _) => const Icon(
                       Icons.star,
-                      color: Colors.amber,
+                      color: Colors.orange,
                     ),
-                    onRatingUpdate: (newValue) => setState(() {
-                      rating = newValue;
+                    onRatingUpdate: (rating) => setState(() {
+                      this.rating = rating;
                     }),
                   ),
                 ],
