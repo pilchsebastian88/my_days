@@ -15,6 +15,8 @@ class MyDaysPage extends StatefulWidget {
 }
 
 class _MyDaysPageState extends State<MyDaysPage> {
+  var currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,8 +155,41 @@ class _MyDaysPageState extends State<MyDaysPage> {
           );
         },
       ),
-      bottomSheet: Image.asset(
-        'images/bottomsheet_image.png',
+      bottomNavigationBar: Container(
+        height: 70,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage('images/bottom_navigation_bar_image.png'),
+          ),
+        ),
+        child: BottomNavigationBar(
+          unselectedItemColor: Colors.grey.shade700,
+          selectedItemColor: Colors.black,
+          selectedFontSize: 15,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          currentIndex: currentIndex,
+          onTap: (newIndex) {
+            setState(() {
+              currentIndex = newIndex;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.assignment,
+              ),
+              label: 'My Days',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.add,
+              ),
+              label: 'Add Day',
+            ),
+          ],
+        ),
       ),
     );
   }
