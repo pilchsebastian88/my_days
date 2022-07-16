@@ -33,28 +33,41 @@ class _NewDayWidgetState extends State<NewDayWidget> {
             widget.title,
             textAlign: TextAlign.justify,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text(
-                'Rating:',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 250, 103, 93),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(40, 20, 40, 1),
+            child: Container(
+              padding: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1,
                 ),
               ),
-              RatingBar.builder(
-                itemSize: 30,
-                updateOnDrag: true,
-                minRating: 1,
-                itemBuilder: (context, _) => const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                ),
-                onRatingUpdate: (newValue) => setState(() {
-                  rating = newValue;
-                }),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Text(
+                    'Rating:',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 250, 103, 93),
+                    ),
+                  ),
+                  RatingBar.builder(
+                    itemSize: 30,
+                    updateOnDrag: true,
+                    minRating: 1,
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    onRatingUpdate: (newValue) => setState(() {
+                      rating = newValue;
+                    }),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ],
       ),
