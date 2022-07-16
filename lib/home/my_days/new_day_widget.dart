@@ -22,6 +22,10 @@ class _NewDayWidgetState extends State<NewDayWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white,
+            width: 2,
+          ),
           borderRadius: BorderRadius.circular(6),
           color: const Color.fromARGB(250, 240, 246, 96)),
       padding: const EdgeInsets.all(10),
@@ -36,7 +40,7 @@ class _NewDayWidgetState extends State<NewDayWidget> {
           Padding(
             padding: const EdgeInsets.fromLTRB(40, 20, 40, 1),
             child: Container(
-              padding: EdgeInsets.all(4),
+              padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
