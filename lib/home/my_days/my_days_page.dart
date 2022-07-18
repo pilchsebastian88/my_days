@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:my_days/home/my_days/new_day_widget.dart';
 
 class MyDaysPage extends StatefulWidget {
-  MyDaysPage({
+  const MyDaysPage({
     Key? key,
   }) : super(key: key);
 
@@ -28,7 +28,7 @@ class _MyDaysPageState extends State<MyDaysPage> {
       ),
       body: Builder(builder: (context) {
         if (currentIndex == 1) {
-          return AddMyDaysPageContent();
+          return const AddMyDaysPageContent();
         }
         return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: FirebaseFirestore.instance.collection('mydays').snapshots(),
@@ -46,9 +46,6 @@ class _MyDaysPageState extends State<MyDaysPage> {
             final documents = snapshot.data!.docs;
             return ListView(
               children: [
-                Column(
-                  children: [],
-                ),
                 for (final document in documents) ...[
                   Dismissible(
                     confirmDismiss: (DismissDirection direction) async {
@@ -82,8 +79,8 @@ class _MyDaysPageState extends State<MyDaysPage> {
                           .delete();
                     },
                     child: NewDayWidget(
+                      document['date'].toString(),
                       document['title'],
-                      document['date'],
                     ),
                   ),
                 ],
@@ -134,7 +131,7 @@ class _MyDaysPageState extends State<MyDaysPage> {
 }
 
 class AddMyDaysPageContent extends StatefulWidget {
-  AddMyDaysPageContent({
+  const AddMyDaysPageContent({
     Key? key,
   }) : super(key: key);
 
@@ -143,7 +140,8 @@ class AddMyDaysPageContent extends StatefulWidget {
 }
 
 class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
-  final controller = TextEditingController();
+  var titleInput = '';
+  var dateInput = '';
 
   @override
   Widget build(BuildContext context) {
@@ -151,11 +149,15 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('add new day'),
+          const Text('add new day'),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
-              controller: controller,
+              onChanged: (newValue) {
+                setState(() {
+                  titleInput = newValue;
+                });
+              },
               decoration: InputDecoration(
                 hintText: 'write here what you learned today',
                 hintStyle: const TextStyle(
@@ -180,7 +182,11 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
-              controller: controller,
+              onChanged: (newValue) {
+                setState(() {
+                  dateInput = newValue;
+                });
+              },
               decoration: InputDecoration(
                 hintText: 'write here date yyyy.mm.dd',
                 hintStyle: const TextStyle(
@@ -206,7 +212,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  if (controller.text.isEmpty) {
+                  if (titleInput == '') {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -227,15 +233,18 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                     setState(
                       () {
                         FirebaseFirestore.instance.collection('mydays').add(
-                          {'title': controller.text, 'date': double.nan},
+                          {
+                            'title': titleInput,
+                            'date': dateInput,
+                          },
                         );
-                        controller.clear();
                       },
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 48, 180, 247)),
+                  primary: const Color.fromARGB(255, 48, 180, 247),
+                ),
                 child: const Text(
                   'save',
                 ),

@@ -3,13 +3,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class NewDayWidget extends StatefulWidget {
   const NewDayWidget(
-    this.title,
-    this.date, {
+    this.date,
+    this.title, {
     Key? key,
   }) : super(key: key);
 
+  final String date;
   final String title;
-  final double date;
 
   @override
   State<NewDayWidget> createState() => _NewDayWidgetState();
@@ -33,15 +33,12 @@ class _NewDayWidgetState extends State<NewDayWidget> {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(
-              widget.date.toString(),
-            ),
-          ),
+              padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text(widget.date)),
           Text(
             widget.title,
             textAlign: TextAlign.justify,
