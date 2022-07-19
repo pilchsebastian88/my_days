@@ -11,8 +11,8 @@ class AddMyDaysPageContent extends StatefulWidget {
 }
 
 class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
+  DateTime date = DateTime(2022, 07, 19);
   var titleInput = '';
-  var dateInput = '';
 
   @override
   Widget build(BuildContext context) {
@@ -50,36 +50,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
               cursorColor: Colors.black,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              onChanged: (newValue) {
-                setState(() {
-                  dateInput = newValue;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: 'write here date yyyy.mm.dd',
-                hintStyle: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.yellow,
-                ),
-                fillColor: Colors.white38,
-                filled: true,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.amber.shade200,
-                    width: 1.0,
-                  ),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.5),
-                ),
-              ),
-              cursorColor: Colors.black,
-            ),
-          ),
-          Row(
+          Column(
             children: [
               ElevatedButton(
                 onPressed: () {
@@ -106,7 +77,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                         FirebaseFirestore.instance.collection('mydays').add(
                           {
                             'title': titleInput,
-                            'date': dateInput,
+                            'date': date,
                           },
                         );
                       },
@@ -119,6 +90,25 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                 child: const Text(
                   'save',
                 ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                  'The date you chose: ${date.year}/${date.month}/${date.day}'),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  DateTime? newDate = await showDatePicker(
+                    context: context,
+                    initialDate: date,
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2100),
+                  );
+                  if (newDate == null) return;
+                  setState(() {
+                    date = newDate;
+                  });
+                },
+                child: const Text('Select date'),
               ),
             ],
           ),
