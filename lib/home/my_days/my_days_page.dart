@@ -29,7 +29,13 @@ class _MyDaysPageState extends State<MyDaysPage> {
       ),
       body: Builder(builder: (context) {
         if (currentIndex == 1) {
-          return const AddMyDaysPageContent();
+          return AddMyDaysPageContent(
+            onSave: () {
+              setState(() {
+                currentIndex = 0;
+              });
+            },
+          );
         }
         return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: FirebaseFirestore.instance.collection('mydays').snapshots(),

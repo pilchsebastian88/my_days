@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class AddMyDaysPageContent extends StatefulWidget {
   const AddMyDaysPageContent({
     Key? key,
+    required this.onSave,
   }) : super(key: key);
+  final Function onSave;
 
   @override
   State<AddMyDaysPageContent> createState() => _AddMyDaysPageContentState();
@@ -80,6 +82,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                             'date': date,
                           },
                         );
+                        widget.onSave();
                       },
                     );
                   }
