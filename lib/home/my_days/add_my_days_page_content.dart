@@ -11,7 +11,7 @@ class AddMyDaysPageContent extends StatefulWidget {
 }
 
 class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
-  DateTime date = DateTime(2022, 07, 19);
+  DateTime date = DateTime.now();
   var titleInput = '';
 
   @override
