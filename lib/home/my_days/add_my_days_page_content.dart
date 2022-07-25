@@ -55,7 +55,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
           Column(
             children: [
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (titleInput == '') {
                     showDialog(
                       context: context,
@@ -74,17 +74,15 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                       },
                     );
                   } else {
-                    setState(
-                      () {
-                        FirebaseFirestore.instance.collection('mydays').add(
-                          {
-                            'title': titleInput,
-                            'date': date,
-                          },
-                        );
-                        widget.onSave();
-                      },
-                    );
+                    {
+                      await FirebaseFirestore.instance.collection('mydays').add(
+                        {
+                          'title': titleInput,
+                          'date': date,
+                        },
+                      );
+                      widget.onSave();
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -95,8 +93,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                 ),
               ),
               const SizedBox(height: 20),
-              Text(
-                  'The date you chose: ${date.year}/${date.month}/${date.day}'),
+              Text('Selected date: ${date.year}/${date.month}/${date.day}'),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
