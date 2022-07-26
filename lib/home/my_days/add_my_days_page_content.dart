@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AddMyDaysPageContent extends StatefulWidget {
   const AddMyDaysPageContent({
@@ -22,7 +23,12 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('add new day'),
+          Text(
+            'Add new day',
+            style: GoogleFonts.dancingScript(
+              fontSize: 30,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(

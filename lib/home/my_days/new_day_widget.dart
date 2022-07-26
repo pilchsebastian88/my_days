@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class NewDayWidget extends StatefulWidget {
@@ -41,12 +42,14 @@ class _NewDayWidgetState extends State<NewDayWidget> {
             ),
             child: Text(
               DateFormat('yyyy-MM-dd').format(widget.date),
+              style: GoogleFonts.dancingScript(),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             widget.title,
             textAlign: TextAlign.justify,
+            style: GoogleFonts.dancingScript(fontSize: 20),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(40, 20, 40, 1),
