@@ -38,7 +38,10 @@ class _MyDaysPageState extends State<MyDaysPage> {
           );
         }
         return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: FirebaseFirestore.instance.collection('mydays').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('mydays')
+              .orderBy('date')
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(
