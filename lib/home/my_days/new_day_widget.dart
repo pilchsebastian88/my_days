@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 
 class NewDayWidget extends StatefulWidget {
   const NewDayWidget(
@@ -8,7 +9,7 @@ class NewDayWidget extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-  final String date;
+  final DateTime date;
   final String title;
 
   @override
@@ -33,12 +34,16 @@ class _NewDayWidgetState extends State<NewDayWidget> {
       child: Column(
         children: [
           Container(
-              padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(widget.date)),
+            padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              DateFormat('yyyy-MM-dd').format(widget.date),
+            ),
+          ),
+          const SizedBox(height: 8),
           Text(
             widget.title,
             textAlign: TextAlign.justify,

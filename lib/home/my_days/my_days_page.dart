@@ -89,7 +89,7 @@ class _MyDaysPageState extends State<MyDaysPage> {
                           .delete();
                     },
                     child: NewDayWidget(
-                      (document['date'] as Timestamp).toDate().toString(),
+                      (document['date'] as Timestamp).toDate(),
                       document['title'],
                     ),
                   ),
