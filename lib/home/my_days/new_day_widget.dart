@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,13 +6,17 @@ import 'package:intl/intl.dart';
 
 class NewDayWidget extends StatefulWidget {
   const NewDayWidget(
+    this.id,
     this.date,
-    this.title, {
+    this.title,
+    this.rating, {
     Key? key,
   }) : super(key: key);
 
+  final String id;
   final DateTime date;
   final String title;
+  final double rating;
 
   @override
   State<NewDayWidget> createState() => _NewDayWidgetState();
@@ -72,16 +77,22 @@ class _NewDayWidgetState extends State<NewDayWidget> {
                     ),
                   ),
                   RatingBar.builder(
-                    initialRating: rating,
+                    initialRating: widget.rating,
                     itemSize: 30,
                     minRating: 1,
                     itemBuilder: (context, _) => const Icon(
                       Icons.star,
                       color: Colors.orange,
                     ),
-                    onRatingUpdate: (rating) => setState(() {
-                      this.rating = rating;
-                    }),
+                    onRatingUpdate: (rating) => setState(
+                      () {
+                        FirebaseFirestore.instance
+                            .collection('mydays')
+                            .doc(widget.id)
+                            .update({'rating': rating});
+                        this.rating = rating;
+                      },
+                    ),
                   ),
                 ],
               ),

@@ -54,6 +54,7 @@ class _MyDaysPageState extends State<MyDaysPage> {
               );
             }
             final documents = snapshot.data!.docs;
+
             return ListView(
               children: [
                 for (final document in documents) ...[
@@ -89,8 +90,10 @@ class _MyDaysPageState extends State<MyDaysPage> {
                           .delete();
                     },
                     child: NewDayWidget(
+                      document.id,
                       (document['date'] as Timestamp).toDate(),
                       document['title'],
+                      (document['rating']).toDouble(),
                     ),
                   ),
                 ],

@@ -16,6 +16,7 @@ class AddMyDaysPageContent extends StatefulWidget {
 class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
   DateTime date = DateTime.now();
   var titleInput = '';
+  final rating = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +86,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                         {
                           'title': titleInput,
                           'date': date,
+                          'rating': rating,
                         },
                       );
                       widget.onSave();
