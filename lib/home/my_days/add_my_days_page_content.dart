@@ -101,7 +101,6 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                 ),
               ),
               const SizedBox(height: 20),
-              Text('Selected date: ${date.year}/${date.month}/${date.day}'),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
@@ -116,7 +115,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                     date = newDate;
                   });
                 },
-                child: const Text('Select date'),
+                child: Text('${date.year}/${date.month}/${date.day}'),
               ),
             ],
           ),
