@@ -9,7 +9,8 @@ class NewDayWidget extends StatefulWidget {
     this.id,
     this.date,
     this.title,
-    this.rating, {
+    this.rating,
+    this.isRatingUpdated, {
     Key? key,
   }) : super(key: key);
 
@@ -17,6 +18,7 @@ class NewDayWidget extends StatefulWidget {
   final DateTime date;
   final String title;
   final double rating;
+  final bool isRatingUpdated;
 
   @override
   State<NewDayWidget> createState() => _NewDayWidgetState();
@@ -77,6 +79,7 @@ class _NewDayWidgetState extends State<NewDayWidget> {
                     ),
                   ),
                   RatingBar.builder(
+                    ignoreGestures: widget.isRatingUpdated,
                     initialRating: widget.rating,
                     itemSize: 30,
                     minRating: 1,
@@ -84,15 +87,22 @@ class _NewDayWidgetState extends State<NewDayWidget> {
                       Icons.star,
                       color: Colors.orange,
                     ),
-                    onRatingUpdate: (rating) => setState(
-                      () {
-                        FirebaseFirestore.instance
-                            .collection('mydays')
-                            .doc(widget.id)
-                            .update({'rating': rating});
-                        this.rating = rating;
-                      },
-                    ),
+                    onRatingUpdate: (rating) {
+                      setState(
+                        () {
+                          FirebaseFirestore.instance
+                              .collection('mydays')
+                              .doc(widget.id)
+                              .update(
+                            {
+                              'rating': rating,
+                              'rating_update': true,
+                            },
+                          );
+                          this.rating = rating;
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

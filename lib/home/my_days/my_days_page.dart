@@ -94,6 +94,7 @@ class _MyDaysPageState extends State<MyDaysPage> {
                       (document['date'] as Timestamp).toDate(),
                       document['title'],
                       (document['rating']).toDouble(),
+                      document['rating_update'],
                     ),
                   ),
                 ],

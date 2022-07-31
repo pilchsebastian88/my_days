@@ -87,6 +87,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                           'title': titleInput,
                           'date': date,
                           'rating': rating,
+                          'rating_update': false,
                         },
                       );
                       widget.onSave();
