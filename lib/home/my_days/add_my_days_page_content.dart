@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AddMyDaysPageContent extends StatefulWidget {
   const AddMyDaysPageContent({
@@ -24,12 +23,32 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'Add new day',
-            style: GoogleFonts.dancingScript(
-              fontSize: 30,
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Text(
+              'Select the date, then enter your text and tap save to add your new day',
+              textAlign: TextAlign.justify,
+              style: TextStyle(fontSize: 17),
             ),
           ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: const Color.fromARGB(255, 48, 180, 247)),
+            onPressed: () async {
+              DateTime? newDate = await showDatePicker(
+                context: context,
+                initialDate: date,
+                firstDate: DateTime(2020),
+                lastDate: DateTime(2100),
+              );
+              if (newDate == null) return;
+              setState(() {
+                date = newDate;
+              });
+            },
+            child: Text('${date.year}/${date.month}/${date.day}'),
+          ),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
@@ -59,6 +78,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
               cursorColor: Colors.black,
             ),
           ),
+          const SizedBox(height: 10),
           Column(
             children: [
               ElevatedButton(
@@ -103,21 +123,6 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
               ),
               const SizedBox(height: 20),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  DateTime? newDate = await showDatePicker(
-                    context: context,
-                    initialDate: date,
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2100),
-                  );
-                  if (newDate == null) return;
-                  setState(() {
-                    date = newDate;
-                  });
-                },
-                child: Text('${date.year}/${date.month}/${date.day}'),
-              ),
             ],
           ),
         ],
