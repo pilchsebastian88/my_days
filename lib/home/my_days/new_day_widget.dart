@@ -1,15 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class NewDayWidget extends StatefulWidget {
   const NewDayWidget(
+    this.id,
+    this.date,
     this.title,
-    this.date, {
+    this.rating,
+    this.isRatingUpdated, {
     Key? key,
   }) : super(key: key);
 
+  final String id;
+  final DateTime date;
   final String title;
-  final double date;
+  final double rating;
+  final bool isRatingUpdated;
 
   @override
   State<NewDayWidget> createState() => _NewDayWidgetState();
@@ -39,12 +48,15 @@ class _NewDayWidgetState extends State<NewDayWidget> {
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
-              widget.date.toString(),
+              DateFormat('yyyy-MM-dd').format(widget.date),
+              style: GoogleFonts.dancingScript(),
             ),
           ),
+          const SizedBox(height: 8),
           Text(
             widget.title,
             textAlign: TextAlign.justify,
+            style: GoogleFonts.dancingScript(fontSize: 20),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(40, 20, 40, 1),
@@ -67,16 +79,30 @@ class _NewDayWidgetState extends State<NewDayWidget> {
                     ),
                   ),
                   RatingBar.builder(
-                    initialRating: rating,
+                    ignoreGestures: widget.isRatingUpdated,
+                    initialRating: widget.rating,
                     itemSize: 30,
                     minRating: 1,
                     itemBuilder: (context, _) => const Icon(
                       Icons.star,
                       color: Colors.orange,
                     ),
-                    onRatingUpdate: (rating) => setState(() {
-                      this.rating = rating;
-                    }),
+                    onRatingUpdate: (rating) {
+                      setState(
+                        () {
+                          FirebaseFirestore.instance
+                              .collection('mydays')
+                              .doc(widget.id)
+                              .update(
+                            {
+                              'rating': rating,
+                              'rating_update': true,
+                            },
+                          );
+                          this.rating = rating;
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

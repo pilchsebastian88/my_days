@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_days/home/my_days/add_my_days_page_content.dart';
 import 'package:my_days/home/my_days/new_day_widget.dart';
 
 class MyDaysPage extends StatefulWidget {
-  MyDaysPage({
+  const MyDaysPage({
     Key? key,
   }) : super(key: key);
-
-  final controller = TextEditingController();
 
   @override
   State<MyDaysPage> createState() => _MyDaysPageState();
@@ -28,133 +27,83 @@ class _MyDaysPageState extends State<MyDaysPage> {
         ),
         backgroundColor: const Color.fromARGB(236, 1, 189, 253),
       ),
-      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance.collection('mydays').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Somenthing went wrong ${snapshot.hasData}'),
-            );
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final documents = snapshot.data!.docs;
-          return ListView(
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: TextField(
-                      controller: widget.controller,
-                      decoration: InputDecoration(
-                        hintText:
-                            'write here what you learned today and tap "save"',
-                        hintStyle: const TextStyle(
-                          fontSize: 11,
-                          color: Colors.yellow,
-                        ),
-                        fillColor: Colors.white38,
-                        filled: true,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.amber.shade200,
-                            width: 1.0,
-                          ),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.black, width: 1.5),
-                        ),
-                      ),
-                      cursorColor: Colors.black,
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (widget.controller.text.isEmpty) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Hint'),
-                              content: const Text(
-                                  'You need to enter some text first'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text('OK!'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      } else {
-                        setState(
-                          () {
-                            FirebaseFirestore.instance.collection('mydays').add(
-                              {
-                                'title': widget.controller.text,
-                                'date': double.nan
-                              },
-                            );
-                            widget.controller.clear();
-                          },
-                        );
-                      }
+      body: Builder(builder: (context) {
+        if (currentIndex == 1) {
+          return AddMyDaysPageContent(
+            onSave: () {
+              setState(() {
+                currentIndex = 0;
+              });
+            },
+          );
+        }
+        return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          stream: FirebaseFirestore.instance
+              .collection('mydays')
+              .orderBy('date')
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Somenthing went wrong ${snapshot.hasData}'),
+              );
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final documents = snapshot.data!.docs;
+
+            return ListView(
+              children: [
+                for (final document in documents) ...[
+                  Dismissible(
+                    confirmDismiss: (DismissDirection direction) async {
+                      return await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Confirm action!'),
+                            content: const Text('You want delete YourDay?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true),
+                                child: const Text('Delete'),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: const Text('Cancel'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
-                    style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 48, 180, 247)),
-                    child: const Text(
-                      'save',
+                    key: ValueKey(document.id),
+                    onDismissed: (_) {
+                      FirebaseFirestore.instance
+                          .collection('mydays')
+                          .doc(document.id)
+                          .delete();
+                    },
+                    child: NewDayWidget(
+                      document.id,
+                      (document['date'] as Timestamp).toDate(),
+                      document['title'],
+                      (document['rating']).toDouble(),
+                      document['rating_update'],
                     ),
                   ),
                 ],
-              ),
-              for (final document in documents) ...[
-                Dismissible(
-                  confirmDismiss: (DismissDirection direction) async {
-                    return await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Confirm action!'),
-                          content: const Text('You want delete YourDay?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(true),
-                              child: const Text('Delete'),
-                            ),
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text('Cancel'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  key: ValueKey(document.id),
-                  onDismissed: (_) {
-                    FirebaseFirestore.instance
-                        .collection('mydays')
-                        .doc(document.id)
-                        .delete();
-                  },
-                  child: NewDayWidget(
-                    document['title'],
-                    document['date'],
-                  ),
-                ),
+                const SizedBox(height: 500)
               ],
-              const SizedBox(height: 500)
-            ],
-          );
-        },
-      ),
+            );
+          },
+        );
+      }),
       bottomNavigationBar: Container(
         height: 70,
         decoration: const BoxDecoration(
