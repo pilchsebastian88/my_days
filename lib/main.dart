@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_days/home/home_page.dart';
+import 'package:my_days/app/features/home/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:my_days/login/login_page.dart';
+import 'package:my_days/app/features/login/login_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
