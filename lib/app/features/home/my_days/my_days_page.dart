@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_days/app/features/home/my_days/add_my_days_page_content.dart';
+import 'package:my_days/app/features/home/add_day/add_my_days_page_content.dart';
 import 'package:my_days/app/features/home/my_days/new_day_widget.dart';
 
 class MyDaysPage extends StatefulWidget {
