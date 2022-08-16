@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_days/app/features/home/add_day/add_my_days_page_content.dart';
+import 'package:my_days/app/features/home/my_days/cubit/my_days_cubit.dart';
 import 'package:my_days/app/features/home/my_days/new_day_widget.dart';
 
 class MyDaysPage extends StatefulWidget {
@@ -27,83 +29,81 @@ class _MyDaysPageState extends State<MyDaysPage> {
         ),
         backgroundColor: const Color.fromARGB(236, 1, 189, 253),
       ),
-      body: Builder(builder: (context) {
-        if (currentIndex == 1) {
-          return AddMyDaysPageContent(
-            onSave: () {
-              setState(() {
-                currentIndex = 0;
-              });
-            },
-          );
-        }
-        return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: FirebaseFirestore.instance
-              .collection('mydays')
-              .orderBy('date')
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('Somenthing went wrong ${snapshot.hasData}'),
-              );
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            final documents = snapshot.data!.docs;
+      body: Builder(
+        builder: (context) {
+          if (currentIndex == 1) {
+            return AddMyDaysPageContent(
+              onSave: () {
+                setState(() {
+                  currentIndex = 0;
+                });
+              },
+            );
+          }
+          return BlocProvider(
+            create: (context) => MyDaysCubit()..start(),
+            child: BlocBuilder<MyDaysCubit, MyDaysState>(
+              builder: (context, state) {
+                if (state.errorMessage.isNotEmpty) {
+                  return Center(
+                    child: Text('Somenthing went wrong ${state.errorMessage}'),
+                  );
+                }
+                if (state.isLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                final documents = state.documents;
 
-            return ListView(
-              children: [
-                for (final document in documents) ...[
-                  Dismissible(
-                    confirmDismiss: (DismissDirection direction) async {
-                      return await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Confirm action!'),
-                            content: const Text('You want delete YourDay?'),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true),
-                                child: const Text('Delete'),
-                              ),
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
-                                child: const Text('Cancel'),
-                              ),
-                            ],
+                return ListView(
+                  children: [
+                    for (final document in documents) ...[
+                      Dismissible(
+                        confirmDismiss: (DismissDirection direction) async {
+                          return await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Confirm action!'),
+                                content: const Text('You want delete YourDay?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(true),
+                                    child: const Text('Delete'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                    child: const Text('Cancel'),
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    key: ValueKey(document.id),
-                    onDismissed: (_) {
-                      FirebaseFirestore.instance
-                          .collection('mydays')
-                          .doc(document.id)
-                          .delete();
-                    },
-                    child: NewDayWidget(
-                      document.id,
-                      (document['date'] as Timestamp).toDate(),
-                      document['title'],
-                      (document['rating']).toDouble(),
-                      document['rating_update'],
-                    ),
-                  ),
-                ],
-                const SizedBox(height: 500)
-              ],
-            );
-          },
-        );
-      }),
+                        key: ValueKey(document.id),
+                        onDismissed: (_) {
+                          context.read<MyDaysCubit>().remove(document.id);
+                        },
+                        child: NewDayWidget(
+                          document.id,
+                          (document['date'] as Timestamp).toDate(),
+                          document['title'],
+                          (document['rating']).toDouble(),
+                          document['rating_update'],
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 500)
+                  ],
+                );
+              },
+            ),
+          );
+        },
+      ),
       bottomNavigationBar: Container(
         height: 70,
         decoration: const BoxDecoration(
