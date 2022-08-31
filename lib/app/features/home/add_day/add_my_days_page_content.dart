@@ -52,6 +52,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
+              maxLines: null,
               onChanged: (newValue) {
                 setState(() {
                   titleInput = newValue;
