@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:my_days/app/features/home/add_day/add_my_days_page_content.dart';
 import 'package:my_days/app/features/home/my_days/cubit/my_days_cubit.dart';
 import 'package:my_days/app/models/new_day_model.dart';
@@ -176,7 +175,7 @@ class _NewDayWidgetState extends State<NewDayWidget> {
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
-              DateFormat('yyyy-MM-dd').format(widget.newDayModel.date),
+              widget.newDayModel.showDateFormatted(),
               style: GoogleFonts.dancingScript(),
             ),
           ),

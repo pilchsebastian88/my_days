@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class NewDayModel {
   NewDayModel({
     required this.id,
@@ -12,4 +14,8 @@ class NewDayModel {
   final String textData;
   final double rating;
   final bool ratingUpdate;
+
+  String showDateFormatted() {
+    return DateFormat.yMEd().format(date);
+  }
 }
