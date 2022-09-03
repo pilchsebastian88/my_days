@@ -5,7 +5,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_days/app/features/home/add_day/add_my_days_page_content.dart';
 import 'package:my_days/app/features/home/my_days/cubit/my_days_cubit.dart';
-import 'package:my_days/app/models/new_day_model.dart';
+import 'package:my_days/models/new_day_model.dart';
+import 'package:my_days/repositories/my_days_repository.dart';
 
 class MyDaysPage extends StatefulWidget {
   const MyDaysPage({
@@ -42,7 +43,7 @@ class _MyDaysPageState extends State<MyDaysPage> {
             );
           }
           return BlocProvider(
-            create: (context) => MyDaysCubit()..start(),
+            create: (context) => MyDaysCubit(MyDaysRepository())..start(),
             child: BlocBuilder<MyDaysCubit, MyDaysState>(
               builder: (context, state) {
                 if (state.errorMessage.isNotEmpty) {

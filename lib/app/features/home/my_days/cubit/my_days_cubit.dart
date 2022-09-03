@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:my_days/app/models/new_day_model.dart';
+import 'package:my_days/models/new_day_model.dart';
+import 'package:my_days/repositories/my_days_repository.dart';
 
 part 'my_days_state.dart';
 
 class MyDaysCubit extends Cubit<MyDaysState> {
-  MyDaysCubit()
+  MyDaysCubit(this._myDaysRepository)
       : super(
           const MyDaysState(
             documents: [],
@@ -16,6 +16,8 @@ class MyDaysCubit extends Cubit<MyDaysState> {
             errorMessage: '',
           ),
         );
+
+  final MyDaysRepository _myDaysRepository;
 
   StreamSubscription? _streamSubscription;
 
@@ -28,22 +30,10 @@ class MyDaysCubit extends Cubit<MyDaysState> {
       ),
     );
 
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('mydays')
-        .orderBy('date')
-        .snapshots()
-        .listen((data) {
-      final newDayModels = data.docs.map((document) {
-        return NewDayModel(
-            id: document.id,
-            date: (document['date'] as Timestamp).toDate(),
-            textData: document['title'],
-            rating: (document['rating'] + 0.0) as double,
-            ratingUpdate: document['rating_update']);
-      }).toList();
+    _streamSubscription = _myDaysRepository.getNewDayStream().listen((data) {
       emit(
         MyDaysState(
-          documents: newDayModels,
+          documents: data,
           isLoading: false,
           errorMessage: '',
         ),
@@ -67,6 +57,6 @@ class MyDaysCubit extends Cubit<MyDaysState> {
   }
 
   Future<void> remove(String id) async {
-    FirebaseFirestore.instance.collection('mydays').doc(id).delete();
+    await _myDaysRepository.delete(id);
   }
 }
