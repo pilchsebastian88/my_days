@@ -53,7 +53,7 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                       date = newDate;
                     });
                   },
-                  child: Text('Jakaś data'),
+                  child: const Text('Jakaś data'),
                 ),
                 const SizedBox(height: 20),
                 Padding(

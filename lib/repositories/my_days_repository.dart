@@ -36,4 +36,16 @@ class MyDaysRepository {
       },
     );
   }
+
+  Future<void> ratingUpdate(
+    String id,
+    double rating,
+  ) async {
+    await FirebaseFirestore.instance.collection('mydays').doc(id).update(
+      {
+        'rating': rating,
+        'rating_update': true,
+      },
+    );
+  }
 }

@@ -59,4 +59,11 @@ class MyDaysCubit extends Cubit<MyDaysState> {
   Future<void> remove(String id) async {
     await _myDaysRepository.delete(id);
   }
+
+  Future<void> ratingUpdate(
+    String id,
+    double rating,
+  ) async {
+    _myDaysRepository.ratingUpdate(id, rating);
+  }
 }

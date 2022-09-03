@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -216,20 +215,11 @@ class _NewDayWidgetState extends State<NewDayWidget> {
                       color: Colors.orange,
                     ),
                     onRatingUpdate: (rating) {
-                      setState(
-                        () {
-                          FirebaseFirestore.instance
-                              .collection('mydays')
-                              .doc(widget.newDayModel.id)
-                              .update(
-                            {
-                              'rating': rating,
-                              'rating_update': true,
-                            },
-                          );
-                          this.rating = rating;
-                        },
-                      );
+                      context
+                          .read<MyDaysCubit>()
+                          .ratingUpdate(widget.newDayModel.id, rating);
+
+                      this.rating = rating;
                     },
                   ),
                 ],
