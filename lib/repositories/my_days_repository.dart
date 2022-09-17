@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_days/models/new_day_model.dart';
 
 class MyDaysRepository {
@@ -47,5 +48,25 @@ class MyDaysRepository {
         'rating_update': true,
       },
     );
+  }
+
+  Future<void> createUserWithEmailAndPassword(
+      {required String email, required String password}) async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
+
+  Future<void> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
+
+  Future<void> signOut() async {
+    FirebaseAuth.instance.signOut();
   }
 }
