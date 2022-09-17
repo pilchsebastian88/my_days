@@ -16,15 +16,10 @@ class AddDayCubit extends Cubit<AddDayState> {
     bool ratingUpdate = false,
   }) async {
     try {
-      _myDaysRepository.add(
-        textData,
-        date,
-      );
+      _myDaysRepository.add(textData, date);
     } catch (error) {
       emit(
-        AddDayState(
-          errorMessage: error.toString(),
-        ),
+        AddDayState(errorMessage: error.toString()),
       );
     }
   }

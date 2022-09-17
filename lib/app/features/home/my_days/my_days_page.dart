@@ -152,8 +152,6 @@ class NewDayWidget extends StatefulWidget {
 }
 
 class _NewDayWidgetState extends State<NewDayWidget> {
-  double rating = 0;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -218,8 +216,6 @@ class _NewDayWidgetState extends State<NewDayWidget> {
                       context
                           .read<MyDaysCubit>()
                           .ratingUpdate(widget.newDayModel.id, rating);
-
-                      this.rating = rating;
                     },
                   ),
                 ],

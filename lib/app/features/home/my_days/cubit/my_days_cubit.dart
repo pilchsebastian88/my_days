@@ -64,6 +64,12 @@ class MyDaysCubit extends Cubit<MyDaysState> {
     String id,
     double rating,
   ) async {
-    _myDaysRepository.ratingUpdate(id, rating);
+    try {
+      await _myDaysRepository.ratingUpdate(id, rating);
+    } catch (error) {
+      emit(
+        MyDaysState(isLoading: false, errorMessage: error.toString()),
+      );
+    }
   }
 }

@@ -91,14 +91,14 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        if (textData == '') {
+                        if (textData == null || date == null) {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: const Text('Hint'),
                                 content: const Text(
-                                    'You need to enter some text first'),
+                                    'You need to enter some text and date'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
