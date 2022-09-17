@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:my_days/app/features/home/add_day/cubit/add_day_cubit.dart';
 import 'package:my_days/repositories/my_days_repository.dart';
 
@@ -42,18 +43,20 @@ class _AddMyDaysPageContentState extends State<AddMyDaysPageContent> {
                   style: ElevatedButton.styleFrom(
                       primary: const Color.fromARGB(255, 48, 180, 247)),
                   onPressed: () async {
-                    DateTime? newDate = await showDatePicker(
+                    DateTime? selectedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(2020),
                       lastDate: DateTime(2100),
                     );
-                    if (newDate == null) return;
+                    if (selectedDate == null) return;
                     setState(() {
-                      date = newDate;
+                      date = selectedDate;
                     });
                   },
-                  child: const Text('Jakaś data'),
+                  child: Text(date == null
+                      ? 'select date'
+                      : DateFormat.yMMMd().format(date!)),
                 ),
                 const SizedBox(height: 20),
                 Padding(
