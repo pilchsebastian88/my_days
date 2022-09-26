@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:my_days/repositories/users_repository.dart';
 
 part 'root_state.dart';
 
 class RootCubit extends Cubit<RootState> {
-  RootCubit()
+  RootCubit(this.usersRepository)
       : super(
           const RootState(
             user: null,
@@ -16,6 +17,8 @@ class RootCubit extends Cubit<RootState> {
           ),
         );
 
+  final UsersRepository usersRepository;
+
   StreamSubscription? _streamSubscription;
 
   Future<void> createUserWithEmailAndPassword({
@@ -23,10 +26,8 @@ class RootCubit extends Cubit<RootState> {
     required String password,
   }) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      await usersRepository.createUserWithEmailAndPassword(
+          email: email, password: password);
     } catch (error) {
       emit(
         RootState(
@@ -43,10 +44,8 @@ class RootCubit extends Cubit<RootState> {
     required String password,
   }) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      await usersRepository.signInWithEmailAndPassword(
+          email: email, password: password);
     } catch (error) {
       emit(RootState(
           user: null, isLoading: false, errorMessage: error.toString()));
@@ -54,7 +53,7 @@ class RootCubit extends Cubit<RootState> {
   }
 
   Future<void> signOut() async {
-    FirebaseAuth.instance.signOut();
+    usersRepository.signOut();
   }
 
   Future<void> start() async {
@@ -66,8 +65,7 @@ class RootCubit extends Cubit<RootState> {
       ),
     );
 
-    _streamSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((user) {
+    _streamSubscription = usersRepository.getUserStream().listen((user) {
       emit(
         RootState(
           user: user,
@@ -76,15 +74,15 @@ class RootCubit extends Cubit<RootState> {
         ),
       );
     })
-          ..onError((error) {
-            emit(
-              RootState(
-                user: null,
-                isLoading: false,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+      ..onError((error) {
+        emit(
+          RootState(
+            user: null,
+            isLoading: false,
+            errorMessage: error.toString(),
+          ),
+        );
+      });
   }
 
   @override
