@@ -1,7 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_days/home/my_days/my_days_page.dart';
+import 'package:my_days/app/cubit/root_cubit.dart';
+import 'package:my_days/app/features/home/my_days/my_days_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -106,7 +107,7 @@ class HomePage extends StatelessWidget {
                       primary: const Color.fromARGB(255, 48, 180, 247),
                     ),
                     onPressed: () {
-                      FirebaseAuth.instance.signOut();
+                      context.read<RootCubit>().signOut();
                     },
                     child: const Text('sign out'),
                   ),
